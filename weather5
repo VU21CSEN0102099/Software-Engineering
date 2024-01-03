@@ -1,0 +1,66 @@
+import csv
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Quadratic solver function (unchanged from previous code)
+def quadratic_solver(a, b, c):
+    delta = b**2 - 4*a*c
+    if delta >= 0:
+        x1 = (-b + (delta**0.5)) / (2*a)
+        x2 = (-b - (delta**0.5)) / (2*a)
+        return x1, x2
+    else:
+        return None
+
+# Function to plot quadratic equation and solutions
+def plot_quadratic_equation(a, b, c, solutions):
+    # Generate x values
+    x = np.linspace(-10, 10, 100)
+
+    # Calculate y values for the quadratic equation
+    y = a*x**2 + b*x + c
+
+    # Plot the quadratic equation
+    plt.plot(x, y, label=f'{a}x^2 + {b}x + {c}')
+
+    # Mark the solutions on the plot
+    if solutions:
+        plt.scatter(solutions, [0, 0], color='red', marker='x', label='Solutions')
+
+    # Add labels and legend
+    plt.axhline(0, color='black',linewidth=0.5)
+    plt.axvline(0, color='black',linewidth=0.5)
+    plt.title('Quadratic Equation and Solutions')
+    plt.xlabel('x')
+    plt.ylabel('y')
+    plt.legend()
+
+    # Show the plot
+    plt.show()
+
+# Example coefficients
+a = 1
+b = -3
+c = 2
+
+# Call the quadratic_solver function
+solutions = quadratic_solver(a, b, c)
+
+# Print the solutions
+print("Solutions:", solutions)
+
+# Plot the quadratic equation and solutions
+plot_quadratic_equation(a, b, c, solutions)
+
+# Write coefficients and solutions to a CSV file
+csv_filename = "quadratic_equations.csv"
+with open(csv_filename, 'w', newline='') as csvfile:
+    csv_writer = csv.writer(csvfile)
+
+    # Write header
+    csv_writer.writerow(['Coefficient a', 'Coefficient b', 'Coefficient c', 'Solution 1', 'Solution 2'])
+
+    # Write data
+    csv_writer.writerow([a, b, c, solutions[0] if solutions else None, solutions[1] if solutions else None])
+
+print(f"Data written to {csv_filename}")
