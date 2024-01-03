@@ -1,0 +1,52 @@
+import matplotlib.pyplot as plt
+import numpy as np
+
+def quadratic_solution(a, b, c, x):
+    """
+    Calculate the quadratic solution for the given coefficients and x value.
+    """
+    y = a * x**2 + b * x + c
+    return y
+
+def plot_temperature_over_time(a, b, c, time_range):
+    """
+    Plot temperature over time using a quadratic function.
+    """
+    time = np.array(time_range)
+    temperature = quadratic_solution(a, b, c, time)
+
+    plt.plot(time, temperature, label=f'a={a}, b={b}, c={c}')
+
+def main():
+    print("Weather Modeling using Quadratic Solution")
+
+    # Get the number of sets
+    num_sets = int(input("Enter the number of sets: "))
+
+    for i in range(num_sets):
+        # Input coefficients for each set
+        if i == 0:
+            a = float(input("Enter the value of a: "))
+            b = float(input("Enter the value of b: "))
+            c = float(input("Enter the value of c: "))
+        else:
+            a = -5
+            b = 65
+            c = 7
+
+        # Hard-coded time values
+        time_range = np.linspace(0, 10, 100)  # Adjust the time range as needed
+
+        # Plot temperature over time using the quadratic function for each set
+        plot_temperature_over_time(a, b, c, time_range)
+
+    # Show the legend and display the plot
+    plt.legend()
+    plt.title("Temperature Over Time for Multiple Sets")
+    plt.xlabel("Time")
+    plt.ylabel("Temperature")
+    plt.grid(True)
+    plt.show()
+
+if __name__ == "__main__":
+    main()
